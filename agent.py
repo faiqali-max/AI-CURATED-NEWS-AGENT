@@ -10,7 +10,7 @@ from google import genai
 # 1. SETUP & CONFIGURATION
 # ==========================================
 
-API_KEY = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY", None)
+GEMINI_API_KEY = "AQ.Ab8RN6JV5eTWHLD-FC6nibKbA5WPzvx5dKJqbUSaO8ay3rTtzQ"
 
 if not API_KEY:
     st.error(
