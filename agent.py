@@ -10,7 +10,7 @@ from google import genai
 # 1. SETUP & CONFIGURATION
 # ==========================================
 
-GEMINI_API_KEY = "AQ.Ab8RN6JV5eTWHLD-FC6nibKbA5WPzvx5dKJqbUSaO8ay3rTtzQ"
+API_KEY = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY", None)
 
 if not API_KEY:
     st.error(
@@ -20,7 +20,6 @@ if not API_KEY:
     st.stop()
 
 client = genai.Client(api_key=API_KEY)
-
 # Map UI language labels -> gTTS language codes
 LANG_CODES = {
     "English": "en",
