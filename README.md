@@ -37,9 +37,11 @@ https://ai-curated-news-agent-nzmxndrloh2lgb4uumgi2c.streamlit.app/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/faiqali-max/AI-CURATED-NEWS-AGENT.git
+cd AI-CURATED-NEWS-AGENT
+
 ```
+> Note: This repository is private — cloning requires collaborator access.
 
 ### 2. Install dependencies
 ```bash
@@ -55,7 +57,7 @@ Create a file at `.streamlit/secrets.toml` in the project folder:
 GEMINI_API_KEY = "your-api-key-here"
 ```
 
-> ⚠️ **Never commit `secrets.toml` to GitHub.** Add it to `.gitignore` to keep your API key private.
+
 
 
 
@@ -90,4 +92,4 @@ google-genai
 
 ## License
 
-Add your preferred license here (e.g. MIT, Apache 2.0).
+Copyright (c) 2026 Faiq Ali. All Rights Reserved. (Educational review only)
