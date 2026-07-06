@@ -26,7 +26,8 @@ Once deployed, your app will be available at:
 https://ai-curated-news-agent-nzmxndrloh2lgb4uumgi2c.streamlit.app/
 ```
 
-##📺 YouTube Video
+## 📺 YouTube Video
+
 Watch the project demo here: AI-Curated Audio News Agent — Capstone Demo
 ...
  https://youtu.be/Z-81KihMnHk 
