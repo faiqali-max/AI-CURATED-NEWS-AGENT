@@ -23,7 +23,7 @@ An autonomous, multi-lingual Streamlit app that fetches live news headlines, cur
 
 Once deployed, your app will be available at:
 ```
-https://your-app-name.streamlit.app
+https://ai-curated-news-agent-nzmxndrloh2lgb4uumgi2c.streamlit.app/
 ```
 
 ## Tech Stack
@@ -57,12 +57,7 @@ GEMINI_API_KEY = "your-api-key-here"
 
 > ⚠️ **Never commit `secrets.toml` to GitHub.** Add it to `.gitignore` to keep your API key private.
 
-### 4. Run the app
-```bash
-python -m streamlit run agent.py
-```
 
-The app will open at `http://localhost:8501`.
 
 ## Deploy for Free — Streamlit Community Cloud
 
