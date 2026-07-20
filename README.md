@@ -3,6 +3,18 @@
 
 An autonomous, multi-lingual Streamlit app that fetches live news headlines, curates the top stories using Google's Gemini AI, and reads the briefing aloud in your chosen language.
 
+## 🌟 Core Agentic Concepts Implemented
+
+To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, this project directly integrates the following design patterns:
+
+- **Tool Use & External API Integration**:
+  - `feedparser` Tool: Directly fetches dynamic, real-time Google News RSS payloads based on user-selected domains and custom search queries.
+  - `gTTS` Tool (Google Text-to-Speech): Dynamic multi-lingual text-to-speech engine that converts curated textual briefings into audio streams on the fly.
+- **Context & Structured System Prompting**:
+  - Utilizes `gemini-2.5-flash` with strict system instructions to filter out clickbait/noise, restrict output to 3 core stories (2 sentences each), and enforce fluid translation across 10 target languages (including RTL script support for languages like Urdu and Arabic).
+- **Sequential Agentic Workflow**:
+  - Structured pipeline: Ingestion Agent (RSS Fetch) → Curation & Translation Agent (Gemini Synthesis) → Audio Broadcast Agent (TTS Synthesis & UI State) while it has made as a single agent all the things are done by a single agent but it can be called a Multi Agent due to this Ingestion Agent (RSS Fetch) → Curation & Translation Agent (Gemini Synthesis) → Audio Broadcast Agent (TTS Synthesis & UI State)
+
 ## Features
 
 - **Live news fetching** from Google News RSS feeds
