@@ -60,7 +60,7 @@ git clone https://github.com/faiqali-max/AI-CURATED-NEWS-AGENT.git
 cd AI-CURATED-NEWS-AGENT
 
 ```
-> Note: This repository is private — cloning requires collaborator access.
+> Note: Only the judges can do these steps of cloning etc.
 
 ### 2. Install dependencies
 ```bash
