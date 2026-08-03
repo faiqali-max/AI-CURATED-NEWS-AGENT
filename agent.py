@@ -51,6 +51,103 @@ def generate_audio(text: str, language_label: str) -> bytes:
 
 st.set_page_config(page_title="AI News Curation Agent", layout="wide")
 
+# --- Background theme selector + apply function (place this right after st.set_page_config(...)) ---
+def apply_background_theme(theme: str) -> None:
+    """
+    Apply a background theme by injecting CSS into Streamlit page.
+    theme: one of "Light", "Dark", "Ocean", "Forest", "Paper"
+    """
+    themes_css = {
+        "Light": """
+            <style>
+            html, body, .stApp {
+                background: #ffffff !important;
+                color: #111827 !important;
+            }
+            .stApp .block-container {
+                background: rgba(255,255,255,0.85) !important;
+                border-radius: 10px;
+                padding: 1rem;
+            }
+            </style>
+        """,
+        "Dark": """
+            <style>
+            html, body, .stApp {
+                background: linear-gradient(180deg,#0b1220,#061021) fixed !important;
+                color: #e6eef8 !important;
+            }
+            .stApp .block-container {
+                background: rgba(0,0,0,0.45) !important;
+                border-radius: 10px;
+                padding: 1rem;
+            }
+            </style>
+        """,
+        "Ocean": """
+            <style>
+            html, body, .stApp {
+                background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1400&auto=format&fit=crop') !important;
+                background-size: cover !important;
+                background-attachment: fixed !important;
+                color: #f0f9ff !important;
+            }
+            .stApp .block-container {
+                background: rgba(2,6,23,0.55) !important;
+                border-radius: 10px;
+                padding: 1rem;
+            }
+            </style>
+        """,
+        "Forest": """
+            <style>
+            html, body, .stApp {
+                background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1400&auto=format&fit=crop') !important;
+                background-size: cover !important;
+                background-attachment: fixed !important;
+                color: #f7fff7 !important;
+            }
+            .stApp .block-container {
+                background: rgba(2,25,8,0.55) !important;
+                border-radius: 10px;
+                padding: 1rem;
+            }
+            </style>
+        """,
+        "Paper": """
+            <style>
+            html, body, .stApp {
+                background: linear-gradient(180deg,#f8f4ea,#efe6d6) !important;
+                color: #2b2b2b !important;
+            }
+            .stApp .block-container {
+                background: rgba(255,255,250,0.9) !important;
+                border-radius: 10px;
+                padding: 1rem;
+                box-shadow: 0 6px 18px rgba(60,60,60,0.06);
+            }
+            </style>
+        """,
+    }
+
+    css = themes_css.get(theme, themes_css["Light"])
+    st.markdown(css, unsafe_allow_html=True)
+
+
+# Sidebar selector + persistence
+_theme_options = ["Light", "Dark", "Ocean", "Forest", "Paper"]
+_default_theme = st.session_state.get("background_theme", "Light")
+background_theme = st.sidebar.selectbox(
+    "Background theme",
+    _theme_options,
+    index=_theme_options.index(_default_theme)
+)
+# persist choice so it survives reruns
+st.session_state["background_theme"] = background_theme
+# apply it
+apply_background_theme(background_theme)
+# -------------------------------------------------------------------------------
+
 st.title("🤖 AI-Curated Audio News Agent")
 st.write("An autonomous multi-lingual agent that processes raw live news streams and speaks briefings aloud.")
 
