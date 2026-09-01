@@ -109,6 +109,4 @@ google-genai
 - The "Stop / Reset" button clears the current session state between actions; it cannot interrupt a news-fetch or AI-generation call that is already in progress, since Streamlit runs each action as a single blocking pass.
 - News results depend on Google News RSS availability and may vary in freshness by topic and region.
 
-## License
 
-Copyright (c) 2026 Faiq Ali. All Rights Reserved. (Educational review only)
