@@ -60,7 +60,6 @@ git clone https://github.com/faiqali-max/AI-CURATED-NEWS-AGENT.git
 cd AI-CURATED-NEWS-AGENT
 
 ```
-> Note: Only the judges can do these steps of cloning etc.
 
 ### 2. Install dependencies
 ```bash
@@ -75,23 +74,6 @@ Create a file at `.streamlit/secrets.toml` in the project folder:
 ```toml
 GEMINI_API_KEY = "your-api-key-here"
 ```
-
-
-
-
-
-## Deploy for Free — Streamlit Community Cloud
-
-1. Push this repo to your GitHub account (make sure `agent.py` and `requirements.txt` are included, and `secrets.toml` is **not**)
-2. Go to [share.streamlit.io](https://share.streamlit.io) and sign in with GitHub
-3. Click **"Create app"** → select this repository → set main file to `agent.py`
-4. Under **Advanced settings → Secrets**, add:
-   ```toml
-   GEMINI_API_KEY = "your-api-key-here"
-   ```
-5. Click **Deploy**
-
-Your app will be live at a public `.streamlit.app` URL — no local server or firewall setup needed.
 
 ## Requirements File
 
