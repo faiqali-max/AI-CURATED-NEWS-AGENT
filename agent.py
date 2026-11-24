@@ -7,19 +7,75 @@ from gtts import gTTS
 from google import genai
 
 # ==========================================
-# 1. SETUP & CONFIGURATION
+# 1. STREAMLIT USER INTERFACE UI & SETTINGS
 # ==========================================
 
-API_KEY = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY", None)
+st.set_page_config(page_title="AI Curated News Agent", layout="wide")
 
-if not API_KEY:
-    st.error(
-        "No API key found. Set the GEMINI_API_KEY environment variable, "
-        "or add it to .streamlit/secrets.toml as GEMINI_API_KEY = \"your-key\"."
+def apply_background_theme() -> None:
+    st.markdown(
+        """
+        <style>
+        html, body, .stApp, [data-testid="stSidebar"], .stApp .block-container,
+        [data-testid="stSelectbox"] > div > div,
+        [data-testid="stTextInput"] > div,
+        [data-testid="stTextInput"] > div > div,
+        [data-testid="stTextInput"] input,
+        [data-baseweb="input"],
+        [data-baseweb="base-input"],
+        [data-testid="stAlert"],
+        [data-testid="stAlert"] > div,
+        [data-testid="stNotification"],
+        .stButton > button {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: #ffffff !important;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            box-shadow: none !important;
+        }
+        html, body, .stApp {
+            background: linear-gradient(110deg, #827ee3, rgb(150, 90, 209), rgb(0, 255, 255), rgb(15, 207, 207), rgb(79, 147, 224)) fixed !important;
+        }
+        .stApp *, [data-testid="stSidebar"] * {
+            color: #ffffff !important;
+        }
+        [data-baseweb="popover"] ul, [data-baseweb="menu"] {
+            background-color: rgba(15, 23, 42, 0.92) !important;
+            color: #ffffff !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
+
+apply_background_theme()
+
+#-------------------------------------------------------------------------------
+
+st.title("🤖 AI-Curated Audio News Agent")
+st.write("An autonomous multi-lingual agent that processes raw live news streams and speaks briefings aloud in a selected language.")
+
+st.sidebar.header("⚙️ Configuration Settings")
+
+st.sidebar.text_input(
+    "Enter your Gemini API key. Get your API key: https://aistudio.google.com . Press Enter afterwards. ",
+    type="password",
+    key="api_key",
+)
+
+api_key = (st.session_state.get("api_key") or "").strip()
+
+if not api_key:
+    st.warning("Enter your API key and press Enter to continue.")
     st.stop()
 
-client = genai.Client(api_key=API_KEY)
+if not api_key.startswith(("AQ", "AIza")) or len(api_key) < 30:
+    st.error("Invalid API key format.")
+    st.stop()
+
+client = genai.Client(api_key=api_key)
+st.success("Ready.")
+
 # Map UI language labels -> gTTS language codes
 LANG_CODES = {
     "English": "en",
@@ -28,11 +84,22 @@ LANG_CODES = {
     "French (Français)": "fr",
     "Arabic (العربية)": "ar",
     "Mandarin (中文)": "zh-CN",
-    "Hindi (हिन्दी)": "hi",
     "German (Deutsch)": "de",
     "Portuguese (Português)": "pt",
     "Russian (Русский)": "ru",
 }
+
+target_language = st.sidebar.selectbox(
+    "Set App Language/اختر لغة:",
+    list(LANG_CODES.keys())
+)
+
+category = st.sidebar.selectbox(
+    "Select News Domain:",
+    ["Science", "Geopolitics", "Technology", "Computer Science",
+     "Healthcare", "Fitness", "Space Exploration"]
+)
+
 
 def generate_audio(text: str, language_label: str) -> bytes:
     """Generate speech audio (mp3 bytes) for the given text using gTTS,
@@ -45,133 +112,12 @@ def generate_audio(text: str, language_label: str) -> bytes:
     buf.seek(0)
     return buf.read()
 
-# ==========================================
-# 2. STREAMLIT USER INTERFACE UI & SETTINGS
-# ==========================================
-
-st.set_page_config(page_title="AI News Curation Agent", layout="wide")
-
-# --- Background theme selector + apply function (place this right after st.set_page_config(...)) ---
-def apply_background_theme(theme: str) -> None:
-    """
-    Apply a background theme by injecting CSS into Streamlit page.
-    theme: one of "Light", "Dark", "Ocean", "Forest", "Paper"
-    """
-    themes_css = {
-        "Light": """
-            <style>
-            html, body, .stApp {
-                background: #ffffff !important;
-                color: #111827 !important;
-            }
-            .stApp .block-container {
-                background: rgba(255,255,255,0.85) !important;
-                border-radius: 10px;
-                padding: 1rem;
-            }
-            </style>
-        """,
-        "Dark": """
-            <style>
-            html, body, .stApp {
-                background: linear-gradient(180deg,#0b1220,#061021) fixed !important;
-                color: #e6eef8 !important;
-            }
-            .stApp .block-container {
-                background: rgba(0,0,0,0.45) !important;
-                border-radius: 10px;
-                padding: 1rem;
-            }
-            </style>
-        """,
-        "Ocean": """
-            <style>
-            html, body, .stApp {
-                background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1400&auto=format&fit=crop') !important;
-                background-size: cover !important;
-                background-attachment: fixed !important;
-                color: #f0f9ff !important;
-            }
-            .stApp .block-container {
-                background: rgba(2,6,23,0.55) !important;
-                border-radius: 10px;
-                padding: 1rem;
-            }
-            </style>
-        """,
-        "Forest": """
-            <style>
-            html, body, .stApp {
-                background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1400&auto=format&fit=crop') !important;
-                background-size: cover !important;
-                background-attachment: fixed !important;
-                color: #f7fff7 !important;
-            }
-            .stApp .block-container {
-                background: rgba(2,25,8,0.55) !important;
-                border-radius: 10px;
-                padding: 1rem;
-            }
-            </style>
-        """,
-        "Paper": """
-            <style>
-            html, body, .stApp {
-                background: linear-gradient(180deg,#f8f4ea,#efe6d6) !important;
-                color: #2b2b2b !important;
-            }
-            .stApp .block-container {
-                background: rgba(255,255,250,0.9) !important;
-                border-radius: 10px;
-                padding: 1rem;
-                box-shadow: 0 6px 18px rgba(60,60,60,0.06);
-            }
-            </style>
-        """,
-    }
-
-    css = themes_css.get(theme, themes_css["Light"])
-    st.markdown(css, unsafe_allow_html=True)
-
-
-# Sidebar selector + persistence
-_theme_options = ["Light", "Dark", "Ocean", "Forest", "Paper"]
-_default_theme = st.session_state.get("background_theme", "Light")
-background_theme = st.sidebar.selectbox(
-    "Background theme",
-    _theme_options,
-    index=_theme_options.index(_default_theme)
-)
-# persist choice so it survives reruns
-st.session_state["background_theme"] = background_theme
-# apply it
-apply_background_theme(background_theme)
-# -------------------------------------------------------------------------------
-
-st.title("🤖 AI-Curated Audio News Agent")
-st.write("An autonomous multi-lingual agent that processes raw live news streams and speaks briefings aloud.")
-
-st.sidebar.header("⚙️ Configuration Settings")
-
-target_language = st.sidebar.selectbox(
-    "Set App Language / زبان منتخب کریں:",
-    list(LANG_CODES.keys())
-)
-
-category = st.sidebar.selectbox(
-    "Select News Domain:",
-    ["Science", "Geopolitics", "Technology", "Computer Science",
-     "Healthcare", "Fitness", "Space Exploration"]
-)
-
-# --- Science sub-discipline picker ---
+# --- Science free-text topic picker ---
 science_niche = None
 if category == "Science":
-    science_niche = st.sidebar.selectbox(
-        "Which field of science?",
-        ["Biology", "Zoology", "Botany", "Genetics", "Marine Biology",
-         "Physics", "Astrophysics", "Nuclear Physics", "Quantum Physics",
-         "Chemistry", "Environmental Science", "Neuroscience", "Geology"]
+    science_niche = st.sidebar.text_input(
+        "Which science topic? (e.g. Biology, Zoology, Botany, Genetics, Marine Biology, Physics, Astrophysics, Nuclear Physics, Quantum Physics, Chemistry, Environmental Science, Neuroscience, Geology",
+        value="Physics"
     )
 
 # --- Computer Science free-text topic picker ---
@@ -182,12 +128,22 @@ if category == "Computer Science":
         value="Artificial Intelligence"
     )
 
+# --- Geopolitics country picker ---
+geopol_topic = None
+if category == "Geopolitics":
+    geopol_topic = st.sidebar.text_input(
+        "Which country's news do you want? (e.g. Pakistan, Iran, China, Russia)",
+        value="Pakistan"
+    )
+
 def build_search_query() -> str:
     """Build the news search query string based on category + sub-selection."""
-    if category == "Science" and science_niche:
-        return science_niche
+    if category == "Science" and science_niche and science_niche.strip():
+        return science_niche.strip()
     if category == "Computer Science" and cs_topic and cs_topic.strip():
         return cs_topic.strip()
+    if category == "Geopolitics" and geopol_topic and geopol_topic.strip():
+        return geopol_topic.strip()    
     return category
 
 def build_rss_url(query: str) -> str:
@@ -268,15 +224,12 @@ if fetch_clicked:
 if 'briefing_result' in st.session_state:
     st.markdown("---")
 
-    col1, col2 = st.columns([1, 2])
+    col1, col2 = st.columns([1, 2], gap="large")
 
     with col1:
         st.markdown("### 🤖 News Anchor")
-        st.image(
-            "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400&auto=format&fit=crop",
-            caption="AI Agent Broadcasting Active",
-            use_container_width=True
-        )
+        st.caption("AI Agent Broadcasting Active")
+
 
         speak_col, stop_col = st.columns(2)
 
