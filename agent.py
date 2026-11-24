@@ -53,6 +53,7 @@ apply_background_theme()
 #-------------------------------------------------------------------------------
 
 st.title("🤖 AI-Curated Audio News Agent")
+st.header("Created By FAIQ ALI")
 st.write("An autonomous multi-lingual agent that processes raw live news streams and speaks briefings aloud in a selected language.")
 
 st.sidebar.header("⚙️ Configuration Settings")
