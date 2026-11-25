@@ -22,10 +22,10 @@ To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, t
 - **Multi-language output** — briefings can be generated and translated into English, Urdu, Spanish, French, Arabic, Mandarin, Hindi, German, Portuguese, or Russian
 - **Text-to-speech** — briefings can be read aloud using Google Text-to-Speech (gTTS), with native pronunciation for each supported language
 - **News categories**:
-  - Science *(with sub-discipline selection: Biology, Zoology, Botany, Genetics, Marine Biology, Physics, Astrophysics, Nuclear Physics, Quantum Physics, Chemistry, Environmental Science, Neuroscience, Geology)*
-  - Geopolitics
+  - Science *(free-text topic search, e.g. Biology, Zoology, Botany, Genetics, Marine Biology, Physics, Astrophysics, Nuclear Physics, Quantum Physics, Chemistry, Environmental Science, Neuroscience, Geology)*
+  - Geopolitics *(news of any country)*
   - Technology
-  - Computer Science *(free-text topic search, e.g. "AI", "Cybersecurity", "Quantum Computing")*
+  - Computer Science *(free-text topic search, e.g. AI, Cybersecurity, Quantum Computing)*
   - Healthcare
   - Fitness
   - Space Exploration
@@ -35,7 +35,7 @@ To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, t
 
 Once deployed, your app will be available at:
 ```
-https://ai-curated-news-agent-nzmxndrloh2lgb4uumgi2c.streamlit.app/
+https://ai-curated-news-agent.streamlit.app
 ```
 
 ## 📺 YouTube Video
