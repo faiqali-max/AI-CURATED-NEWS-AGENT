@@ -5,8 +5,6 @@ An autonomous, multi-lingual Streamlit app that fetches live news headlines, cur
 
 ## 🌟 Core Agentic Concepts Implemented
 
-To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, this project directly integrates the following design patterns:
-
 - **Tool Use & External API Integration**:
   - `feedparser` Tool: Directly fetches dynamic, real-time Google News RSS payloads based on user-selected domains and custom search queries.
   - `gTTS` Tool (Google Text-to-Speech): Dynamic multi-lingual text-to-speech engine that converts curated textual briefings into audio streams on the fly.
@@ -19,7 +17,7 @@ To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, t
 
 - **Live news fetching** from Google News RSS feeds
 - **AI curation** — Gemini filters out duplicates and clickbait, picks the top 3 stories, and writes a two-sentence summary for each
-- **Multi-language output** — briefings can be generated and translated into English, Urdu, Spanish, French, Arabic, Mandarin, Hindi, German, Portuguese, or Russian
+- **Multi-language output** — briefings can be generated and translated into English, Urdu, Spanish, French, Arabic, Mandarin, German, Portuguese, or Russian
 - **Text-to-speech** — briefings can be read aloud using Google Text-to-Speech (gTTS), with native pronunciation for each supported language
 - **News categories**:
   - Science *(free-text topic search, e.g. Biology, Zoology, Botany, Genetics, Marine Biology, Physics, Astrophysics, Nuclear Physics, Quantum Physics, Chemistry, Environmental Science, Neuroscience, Geology)*
@@ -33,16 +31,9 @@ To meet the core evaluation requirements of the Kaggle 5-Day AI Agents course, t
 
 ## Live Demo
 
-Once deployed, your app will be available at:
+You can visit it here. To make it run you will have to create an API key from [Google AI Studio](https://aistudio.google.com) and paste it there on the app.:
 ```
 https://ai-curated-news-agent.streamlit.app
-```
-
-## 📺 YouTube Video
-
-Watch the project demo here:
-```
-https://youtu.be/Z-81KihMnHk
 ```
 
 ## Tech Stack
