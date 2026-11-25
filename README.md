@@ -32,9 +32,8 @@ An autonomous, multi-lingual Streamlit app that fetches live news headlines, cur
 ## Live Demo
 
 You can visit it here. To make it run you will have to create an API key from [Google AI Studio](https://aistudio.google.com) and paste it there on the app.:
-```
-https://ai-curated-news-agent.streamlit.app
-```
+
+🌐 **Link:** [ai-curated-news-agent.streamlit.app](https://ai-curated-news-agent.streamlit.app)
 
 ## Tech Stack
 
